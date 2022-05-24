@@ -9,7 +9,6 @@ var randomNumber = function (min, max) {
   return value;
 }
 
-
 // Fight Function that includes the  Enemy's Name
 var fight = function(enemy) {
   while(playerInfo.health > 0 && enemy.health > 0) {
@@ -81,13 +80,13 @@ var fight = function(enemy) {
         var pickedEnemyObj = enemyInfo[i];
 
         // Resets the enemy.health value before starting a new fight
-        enemyInfo.health = pickedEnemyObj.health = randomNumber(40, 60);
+        pickedEnemyObj.health = randomNumber(40, 60);
 
         // Pass the pickedenemy.name variable value into the fight function, it will assume the value of the enemy.name parameter
         fight(pickedEnemyObj);
 
         // If the player is still alive and it hasn't gotten to the last enemy in the array
-        if (playerInfo.health > 0 && i < enemyInfo.names - 1) {
+        if (playerInfo.health > 0 && i < enemyInfo.length - 1) {
            // Ask if the player wants to use the store before the next round
            var storeConfirm = window.confirm("The fight is over, visit the store before the next round?");
 
