@@ -8,8 +8,14 @@ var playerHealth = 100;
 var playerAttack = 10;
 var playerMoney = 10;
 
+// Function to generate a random numeric value
+var randomNumber = function (min, max) {
+  var value = Math.floor(Math.random() * (max - min + 1) + min);
+  return value;
+}
+
 var enemyNames = ["Roberto", "Amy Android", "Robo Trumble"];
-var enemyHealth = 50;
+var enemyHealth = randomNumber(40, 60);
 var enemyAttack = 12;
 
 // Fight Function that includes the  Enemy's Name
@@ -29,13 +35,14 @@ var fight = function(enemyName) {
         if (confirmSkip) {
             window.alert(playerName + " has decided to skip this fight. Goodbye!");
             // If the player decides to skip, this line subtracts money from the player
-            playerMoney = playerMoney - 10;
+            playerMoney = Math.max(0, playerMoney - 10);
             console.log("playerMoney", playerMoney);
             break;
         }
     }
     // After the fight subtract the value of the playerAttack variable from the enemyHealth
-    enemyHealth = enemyHealth - playerAttack;
+    var damage = randomNumber(playerAttack - 3,  playerAttack);
+      enemyHealth = Math.max(0, enemyHealth - damage);
     console.log(playerName + " attacked " + enemyName + ". " + enemyName + " now has " + enemyHealth + " health remaining.");
 
         // Check enemy health
@@ -50,7 +57,8 @@ var fight = function(enemyName) {
         }
 
         // Subtract the value of the enemyAttack variable from the playerHealth
-        playerHealth = playerHealth - enemyAttack;
+        var damage = randomNumber(enemyAttack - 3, enemyAttack);
+          playerHealth = Math.max(0, playerHealth - damage);
         console.log(enemyName + " attacked " + playerName + ". " + playerName + " now has " + playerHealth + " health remaining.");
 
             // Check player health
@@ -83,7 +91,7 @@ var fight = function(enemyName) {
         var pickedEnemyName = enemyNames[i];
 
         // Resets the enemyHealth value before starting a new fight
-        enemyHealth = 50;
+        enemyHealth = Math.floor(Math.random() * 21) + 40;
 
         // Pass the pickedEnemyName variable value into the fight function, it will assume the value of the enemyName parameter
         fight(pickedEnemyName);
@@ -142,7 +150,7 @@ var fight = function(enemyName) {
            case 'REFILL':
            case 'refill':
               if (playerMoney >= 7) {
-                window.alert("Refilling player's heaalth by 20 for 7 dollars.");
+                window.alert("Refilling player's health by 20 for 7 dollars.");
 
                 // Increase health and decrease money
                 playerHealth = playerHealth + 20;
