@@ -52,6 +52,7 @@ var fight = function(enemy) {
   if (Math.random() > 0.5) {
     isPlayerTurn = false;
   }
+  
   while (playerInfo.health > 0 && enemy.health > 0) {
     if (isPlayerTurn) {
       //Ask player if they would like to keep fighting
@@ -81,6 +82,7 @@ var fight = function(enemy) {
       // The player that gets attacked first
     } else {
       var damage = randomNumber(enemy.attack - 3, enemy.attack);
+      
       // Subtract the value of the enemy.attack variable from the playerHealth
       playerInfo.health = Math.max(0, playerInfo.health - damage);
       console.log(enemy.name + " attacked " + playerInfo.name + ". " + playerInfo.name + " now has " + playerInfo.health + " health remaining.");
@@ -149,13 +151,22 @@ var startGame = function() {
 var endGame = function() {
   window.alert("The game has now ended. Let's see how you did!");
 
-  // If the player is still alive, the player wins!
-  if (playerInfo.health > 0) {
-    window.alert("Great job, you've survived the game! You now have a score of " + playerInfo.money + ".");
-  } else {
-    window.alert("You've lost your robot in battle.");
+  // Check localStorage for the high score, if it's not there, use 0
+  var highScore = localStorage.getItem("highscore");
+  if (highscore === null) {
+    highscore = 0;
   }
 
+  // If the player has more money than the high score, the player has the new high score
+  if (playerInfo.money > highscore) {
+    localStorage.setItem("highscore", playerInfo.money);
+    localStorage.setItem("name", playerInfo.name);
+
+    alert(playerInfo.name + " now has the high score of " + playerInfo.money + "!");
+  }
+  else {
+    alert(playerInfo.name + " did not beat the high score of " + highScore + ". Maybe next time!");
+  }
   // Ask the player if they would like to play again
   var playAgainConfirm = window.confirm("Would you like to play again?");
 
@@ -165,7 +176,6 @@ var endGame = function() {
     window.alert("Thank you for playing Robot Gladiators! Come back soon!");
   }
 };
-
 // Go to the shop between battle functions
 var shop = function() {
   // Ask player what they would like to do
