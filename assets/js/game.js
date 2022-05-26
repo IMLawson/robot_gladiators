@@ -24,6 +24,7 @@ var fightOrSkip = function() {
   // Convert promptFight to all lowercase
   promptFight = promptFight.toLowerCase();
 
+
   // If player picks "skip" confirm and then stop the loop
   if (promptFight === "skip") {
     //confirm player wants to skip
@@ -42,6 +43,11 @@ var fightOrSkip = function() {
   }
     return false;
 };
+
+// Fight Function that includes the  Enemy's Name
+var fight = function(enemy) {
+  while(playerInfo.health > 0 && enemy.health > 0) {
+
 
 // Fight function with parameters
 var fight = function(enemy) {
@@ -117,6 +123,7 @@ var startGame = function() {
       // Picks a new enemy to fight based on the index of the enemy.names array
       var pickedEnemyObj = enemyInfo[i];
 
+
       // Set the health for the enemy that is picked
       pickedEnemyObj.health = randomNumber(40, 60);
       console.log(pickedEnemyObj);
@@ -124,11 +131,12 @@ var startGame = function() {
       // Pass the pickedenemy.name variable value into the fight function, it will assume the value of the enemy.name parameter
       fight(pickedEnemyObj);
 
+
       // If the player is still alive and it hasn't gotten to the last enemy in the array
       if (playerInfo.health > 0 && i < enemyInfo.names - 1) {
         // Ask if the player wants to use the store before the next round
         var storeConfirm = window.confirm("The fight is over, visit the store before the next round?");
-
+        
         // If they want to use the store execute store() function
         if (storeConfirm) {
           shop();
