@@ -56,7 +56,7 @@ var fight = function(enemy) {
   while (playerInfo.health > 0 && enemy.health > 0) {
     if (isPlayerTurn) {
       //Ask player if they would like to keep fighting
-      if (fightOrSkipp()) {
+      if (fightOrSkip()) {
         //If True, break the loop
         break;
       }
